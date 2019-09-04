@@ -44,7 +44,8 @@ public class VRSettings
     public static final int INERTIA_LARGE = 2;
     public static final int INERTIA_MASSIVE = 3;
 
-    public static final int BOW_MODE_ON = 2;
+    public static final int BOW_MODE_ON_STRICT = 3;
+	public static final int BOW_MODE_ON = 2;
     public static final int BOW_MODE_VANILLA = 1;
     public static final int BOW_MODE_OFF = 0;
 
@@ -1052,6 +1053,8 @@ public class VRSettings
             		return var4 + " ON";
             	else if (this.bowMode == BOW_MODE_VANILLA)
             		return var4 + "VANILLA";
+				else if (this.bowMode == BOW_MODE_ON_STRICT)
+					return var4 + " ON (STRICT)";
             	else return var4 + " wtf?";
             case TELEPORT_UP_LIMIT:
 	            return var4 +  (this.vrTeleportUpLimit > 0 ? this.vrTeleportUpLimit+ " Blocks" :" OFF");
@@ -1363,7 +1366,7 @@ public class VRSettings
                 break;
             case BOW_MODE:
             	this.bowMode++;
-            	if(this.bowMode>2) this.bowMode = 0;
+            	if(this.bowMode>3) this.bowMode = 0;
             	break;
             case RADIAL_MODE_HOLD:
             	this.radialModeHold = !this.radialModeHold;
