@@ -41,6 +41,8 @@ public class BowTracker extends Tracker {
 	private final double notchDotThreshold = 20;
 	private double maxDraw ;
 	private long maxDrawMillis=1100;
+	
+	private static ItemStack offTemp;
 
 	private Vec3d aim;
 
@@ -159,7 +161,14 @@ public class BowTracker extends Tracker {
 		ItemStack ammo;
 		ItemStack bow;
 
-		if(main){ //autofind ammo.
+		if(main && Minecraft.getMinecraft().vrSettings.bowMode == 3){ //Prepare to set bow to offhand for strict mode.
+			ammo = findAmmoItemStack(player); //Autofind ammo
+			bow = player.getHeldItemMainhand();
+			offTemp = player.getHeldItemOffhand(); //Store the current offhand item for later (when switching out of bow).
+			player.setHeldItem(EnumHand MAIN_HAND, ammo);
+			player.setHeldItem(EnumHand OFF_HAND, bow);
+		}
+		else if(main){ //autofind ammo.
 			ammo = findAmmoItemStack(player);
 			bow = player.getHeldItemMainhand();
 		}
@@ -316,6 +325,10 @@ public class BowTracker extends Tracker {
         }else {
         	return stack.getItem() instanceof ItemArrow;
         }
+    }
+	
+    public static ItemStack getPreviousOffhandItem(){
+	return this.offTemp;
     }
 
 }
