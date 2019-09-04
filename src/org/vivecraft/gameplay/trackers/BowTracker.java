@@ -42,7 +42,7 @@ public class BowTracker extends Tracker {
 	private double maxDraw ;
 	private long maxDrawMillis=1100;
 	
-	private static ItemStack offTemp;
+	private static ItemStack offTemp = null;
 
 	private Vec3d aim;
 
@@ -328,7 +328,9 @@ public class BowTracker extends Tracker {
     }
 	
     public static ItemStack getPreviousOffhandItem(){
-	return this.offTemp;
+	ItemStack offTemp2 = offTemp;
+	offTemp = null;
+	return offTemp2;
     }
 
 }
